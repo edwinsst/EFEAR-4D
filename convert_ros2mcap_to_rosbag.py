@@ -3,7 +3,8 @@ import subprocess
 import rosbag
 import os
 
-# rosbag play /path/to/your/bag.bag /imaging_radar1:=/oculii_radar/point_cloud --clock
+# Usage: python3 convert_ros2mcap_to_rosbag.py /path/to/mcap/folder/ /output/bag/name.bag
+# Play converted bag with: "rosbag play /path/to/your/bag.bag /imaging_radar1:=/oculii_radar/point_cloud --clock"
 
 if len(sys.argv) < 3:
     print("Usage: python3 prep_bag.py <input.mcap_folder> <output_efear.bag>")
