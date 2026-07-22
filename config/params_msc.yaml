@@ -19,23 +19,35 @@ efear:
   # savePCDDirectory: "/Downloads/4DRadarSLAM/"        #
 
   # Sensor Settings
-  # z_low_thresh: -5.0                         # default: -5.0, minimum z value of the point cloud
-  # z_high_thresh: 10.0                          # default: 10.0, maximum z value of the point cloud
-  # distance_near_thresh: 1.0                          # default: 1.0, minimum lidar range to be used
-  # distance_far_thresh: 100.0                       # default: 100.0, maximum lidar range to be used
+  #z_low_thresh: -5.0                         # default: -5.0, minimum z value of the point cloud
+  #z_high_thresh: 10.0                          # default: 10.0, maximum z value of the point cloud
+  #distance_near_thresh: 0.1                          # default: 1.0, minimum lidar range to be used
+  #distance_far_thresh: 20.0                       # default: 100.0, maximum lidar range to be used
   
   # Matching Settings
-  registration_type: "P2P"
+  registration_type: "P2P"			# P2L
+  # max_submap_frames: 15                   # // Increase from 3 so the local map is denser
   resolution: 1.0         # The voxel size for the voxel grid features, in meters 
-  enable_dynamic_object_removal: true
+  # downsample_resolution: 0.05
+  enable_dynamic_object_removal: false
 
 
   # Extrinsics (Radar -> IMU)
   extrinsicTrans: [0, 0, 0]
-  extrinsicRot: [0, 0, 1,
-                  -1, 0, 0,
-                  0, -1, 0]
+  extrinsicRot: [1, 0, 0,
+                  0, 1, 0,
+                  0, 0, 1]
 
 ego_velocity_estimator:
   inlier_thresh: 1.5 # m/s, depend on the speed
 
+  # EXPOSED HIDDEN C++ PARAMETERS FOR INDOOR RADAR
+  #Min_core_points: 5        # Default 50: Lowered so sparse indoor points can form clusters
+  #Cluster_Tolerance: 0.5    # Default 1.0: Tightened so the whole room isn't one cluster
+  #Min_Cluster_size: 10      # Default 300: Lowered so small indoor objects aren't deleted
+  #Max_Cluster_size: 2000
+  #Min_inlier_size: 15       # Default 2000: Lowered drastically so sparse scans aren't entirely dropped
+  
+  # Keyframe Generation
+  #keyframe_delta_trans: 0.15              # Default 0.25: Drop a keyframe every 15cm
+  #keyframe_delta_angle: 0.08              # Default 0.15: Drop a keyframe every ~4.5 degrees of turn
